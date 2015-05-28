@@ -13,15 +13,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "drawAShape", name: "actionOnePressed", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAMessage", name: "actionTwoPressed", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "drawAShape:", name: "actionOnePressed", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showAMessage:", name: "actionTwoPressed", object: nil)
         
         var dateComp: NSDateComponents = NSDateComponents()
         dateComp.year = 2015;
         dateComp.month = 5;
         dateComp.day = 28;
         dateComp.hour = 14;
-        dateComp.minute = 15;
+        dateComp.minute = 30;
         dateComp.timeZone = NSTimeZone.systemTimeZone()
         
         var calender: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         
     }
     
-    func drawAShapre(notification: NSNotification) {
+    func drawAShape(notification: NSNotification) {
         var view: UIView = UIView(frame: CGRectMake(10, 10, 100, 100))
         view.backgroundColor = UIColor.redColor()
         self.view.addSubview(view)
