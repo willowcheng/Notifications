@@ -48,8 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaultActions: NSArray = [firstAction, secondAction, thirdAction]
         let minimalActions: NSArray = [firstAction, secondAction]
         
-        firstCategory.setActions(defaultActions, forContext: UIUserNotificationActionContext.Default)
-        firstCategory.setActions(minimalActions, forContext: UIUserNotificationActionContext.Minimal)
+        firstCategory.setActions(defaultActions as [AnyObject], forContext: UIUserNotificationActionContext.Default)
+        firstCategory.setActions(minimalActions as [AnyObject], forContext: UIUserNotificationActionContext.Minimal)
         
         // NSSet of all our categories
         
@@ -59,11 +59,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Define notification types used in the application
         let types: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Badge
         
-        let mySettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: types, categories: nil)
+        let mySettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: types, categories: categories as Set<NSObject>)
         
         UIApplication.sharedApplication().registerUserNotificationSettings(mySettings)
         
         return true
+    }
+    
+    func application(application: UIApplication,
+        handleActionWithIdentifier identifier: String?,
+        forLocalNotification notification: UILocalNotification,
+        completionHandler: (() -> Void)){
+            
+            if (identifier == "FIRST_ACTION"){
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("actionOnePressed", object: nil)
+                
+            }else if (identifier == "SECOND_ACTION"){
+                NSNotificationCenter.defaultCenter().postNotificationName("actionTwoPressed", object: nil)
+                
+            }
+            
+            completionHandler()
+            
     }
 
     func applicationWillResignActive(application: UIApplication) {
